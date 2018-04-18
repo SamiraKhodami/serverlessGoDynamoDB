@@ -1,0 +1,81 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: myservice
+
+custom:
+  deviceTableName: ${self:service}-${self:provider.stage}-device
+  deviceTableArn: 
+    Fn::Join:
+    - ":"
+    - - arn
+      - aws
+      - dynamodb
+      - Ref: AWS::Region
+      - Ref: AWS::AccountId
+      - table/${self:custom.deviceTableName}
+
+provider:
+  name: aws
+  runtime: go1.x
+  environment:
+    DEVICE_TABLE_NAME: ${self:custom.deviceTableName}
+  iamRoleStatements: # Defines what other AWS services our lambda functions can access
+    - Effect: Allow 
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+      Resource:
+        - ${self:custom.deviceTableArn}
+package:
+ exclude:
+   - ./**
+ include:
+   - ./bin/**
+
+functions:
+  addDevice:
+    handler: bin/addDevice
+    events:
+       - http:
+            path: devices 
+            method: post  
+            cors: true
+  getDevice:
+    handler: bin/getDevice
+    events:
+      - http:
+          path: devices/{id}
+          method: get
+          cors: true
+  stringutil:
+    handler: bin/lib/stringutil
+  dbconfig: 
+    handler: bin/lib/dbconfig
+  devicecrud:
+    handler: bin/lib/devicecrud
+resources:
+  Resources: 
+    DeviceTable: 
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:custom.deviceTableName}
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
