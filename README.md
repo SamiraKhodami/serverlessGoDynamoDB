@@ -31,8 +31,6 @@ Change directory to addDevice (or getDevice) for running unit test of it :
 
 $ go test
 
-Note: some packages in lib folder are reused in addDevice (or getDevice), please change myservice to the name of your service directory, before compiling or testing the project.
-
 # 7.Compile
 Change into service directory and compile :
 
