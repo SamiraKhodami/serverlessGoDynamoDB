@@ -9,9 +9,9 @@ import (
     "github.com/aws/aws-lambda-go/events"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 
-    "myservice/lib/stringutil"
-    "myservice/lib/dbconfig"
-    d "myservice/lib/devicecrud"
+    "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/stringutil"
+    "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/dbconfig"
+    d "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/devicecrud"
 )
 
 func AddDevice(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
