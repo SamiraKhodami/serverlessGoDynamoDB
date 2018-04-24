@@ -12,8 +12,8 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 
-    d "myservice/lib/devicecrud"
-    main "myservice/addDevice"
+    d "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/devicecrud"
+    main "github.com/SamiraKhodami/serverlessGoDynamoDB/addDevice"
 )
 
 type mockDynamoDBClient struct {
