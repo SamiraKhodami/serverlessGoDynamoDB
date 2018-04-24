@@ -9,8 +9,8 @@ import (
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
     "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 
-    "myservice/lib/dbconfig"
-    d "myservice/lib/devicecrud"
+    "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/dbconfig"
+    d "github.com/SamiraKhodami/serverlessGoDynamoDB/lib/devicecrud"
 )
 
 func GetDevice(request events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
